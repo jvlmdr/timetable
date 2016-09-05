@@ -87,11 +87,9 @@
   <div id="content">
     <h1>Uni Timetable Manager</h1>
     
-    <?php list($quote, $author, $publication, $date) = get_random_quote(); ?>
     <div id="quote">
-    <p><em>&#8220;<?php echo $quote; ?>&#8221;</em></p>
-    <p class="author" align="right">&mdash; <?php echo $author; ?></p>
-    <p class="source" align="right">random time quotes from <a href="http://en.wikiquote.org/">wikiquote.org</a></p>
+    <p><em>&#8220;They say that time changes things, but you actually have to change them yourself.&#8221;</em></p>
+    <p class="author" align="right">&mdash; Andy Warhol</p>
     </div>
 
     <p>The timetable manager calculates the best possible timetable you can choose this semester. You can select which criteria to optimise against, such as the number of days at uni, the average start time, the total time at uni or even the longest block of consecutive classes. There's also a swish drag-drop interface for making manual adjustments.</p>
@@ -113,32 +111,3 @@
 
 </body>
 </html>
-
-<?php
-
-function get_quotes()
-{
-  $file = "quotes.csv";
-  $fh = fopen($file, 'r');
-  $quotes = array();
-  while ($line = fgets($fh))
-  {
-    $details = split("\t", $line);
-    $quotes[count($quotes)] = $details;
-  }
-  return $quotes;
-}
-
-function random($max)
-{
-  return rand() % $max;
-}
-
-function get_random_quote()
-{
-  $quotes = get_quotes();
-  $random = random(count($quotes));
-  return $quotes[$random];
-}
-
-?>
