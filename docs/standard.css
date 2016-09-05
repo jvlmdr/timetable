@@ -1,0 +1,100 @@
+body {
+  font-family: Arial, Helvetica, sans serif;
+}
+
+a {
+  color: #666666;
+}
+
+#container {
+  margin: auto;
+  padding: 0 0 2em 0;
+  position: relative;
+  width: 750px;
+}
+
+#content {
+  margin: 0;
+}
+
+#content img {
+  border: none;
+}
+
+#content h1 {
+  font-size: 1.8em;
+  font-weight: normal;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+#content h2 {
+  font-size: 1.5em;
+  font-weight: normal;
+  font-style: italic;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+#content h3 {
+  font-size: 1.2em;
+  font-weight: normal;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+#content p {
+  line-height: 150%;
+}
+
+#navlinks {
+  float: right;
+  width: 180px;
+  margin-left: 1em;
+  padding-left: 1em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  border-left: 1px dotted #999999;
+  background-color: white;
+}
+
+#navlinks ul {
+  list-style-type: none;
+  padding: 0 0 0 1em;
+  margin: 0;
+}
+
+#navlinks li {
+  margin: 0.5em 0 0.5em 0;
+}
+
+#navlinks hr {
+  border: 1px dotted #999999;
+  width: 50%;
+}
+
+div.linksection {
+  font-weight: bold;
+  margin: 1em 0 1em 0;
+}
+
+#content ul.main {
+  list-style-type: none;
+  padding: 0 0 0 1em;
+  margin: 0;
+}
+
+#content ul.main li {
+  margin: 0.5em 0 0.5em 0;
+}
+
+#content ul.bullet {
+  list-style-type: square;
+  padding: 0 0 0 1em;
+  margin: 0;
+}
+
+#content ul.bullet li {
+  margin: 0.5em 0 0.5em 0;
+}
+

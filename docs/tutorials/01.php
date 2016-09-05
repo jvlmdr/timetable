@@ -1,0 +1,93 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Tutorials - Uni Timetable Manager</title>
+
+<meta name="description" content="Learn the basics of the University Timetable Manager." />
+<meta name="keywords" content="university timetable manager UTM Jack Valmadre uni free software program solver optimiser UQ brisbane queensland australia classes lecture tutorials C# C sharp" />
+
+<link rel="stylesheet" href="../standard.css" type="text/css" />
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12868615-1']);
+  _gaq.push(['_setDomainName', 'valmadre.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<div id="container">
+  <div id="navlinks">
+    <div class="linksection"><a href="../">timetable</a></div>
+    <ul>
+      <li><a href="../download/">Download</a></li>
+      <li><a href="../tutorials/">Tutorials</a></li>
+      <li><a href="http://code.google.com/p/unitimetable/source/browse/#svn/trunk/UniTimetable">Source Code</a></li>
+      <li><a href="http://code.google.com/p/unitimetable/issues/list">File a Bug</a></li>
+    </ul>
+    <div class="linksection"><a href="http://jack.valmadre.net/">jack.valmadre.net</a></div>
+    <ul>
+      <li><a href="../../blog/">Blog</a></li>
+      <li><a href="../">Timetable</a></li>
+    </ul>
+    <div class="linksection"><a href="http://valmadre.net">valmadre.net</a></div>
+    <ul>
+      <li><a href="http://jack.valmadre.net/">Jack Valmadre</a></li>
+      <li><a href="http://www.artsandframes.com/">Arts and Frames</a></li>
+    </ul>
+  </div>
+
+  <div id="content">
+    <h1>Uni Timetable Manager</h1>
+    <h3>Tutorial 1: The Basics</h3>
+    
+    <p>Log into SI-net, go to the <em>Timetable</em> section and click on <em>Classes List View</em>, <strong>not</strong> <em>Classes Weekly View</em>. Look for a link to <em>Download in spreadsheet format</em> in the top right corner. Save the <em>ps.xls</em> file somewhere you can find it, name it whatever you like.</p>
+    <p align="center">
+      <a href="SpreadsheetFormat.png"><img src="SpreadsheetFormatSmall.png" alt="Download in spreadsheet format." /></a>
+    </p>
+    <p>Run the software and click Import on the toolbar, or Timetable > Import from the menu. Select the file you obtained from SI-net, then click Next. If you encounter an error at this stage, make sure you used the <em>Classes List View</em>. If that wasn't the problem, you've probably found a bug. Send me an email!</p>
+    <p>The next dialog presents you with a visual preview of the classes for each subject.</p>
+    <p align="center">
+      <a href="PreviewStreamData.png"><img src="PreviewStreamDataSmall.png" alt="Preview stream data." /></a>
+    </p>
+    <p>The final dialog gives you a chance to review which classes are ignored and included by the optimiser. By default, it ignores classes with prefix C (contact), W (workshop) or S (seminar). <strong>Beware</strong> that sometimes a subject requires that you sign on for one of these.</p>
+    <p>This dialog will also tell you if there is an unavoidable clash in your timetable. In the example shown below, MATH2010 and STAT2202 lectures are taught at the same time in the first and second half of the semester. I'll ignore the STAT2202 Lecture for now, otherwise the optimiser will not be able to find any solutions. Eventually I'm hoping to use the <em>Dates Taught On</em> data from SI-net to get around this, but don't hold your breath. Sorry!</p>
+    <p align="center">
+      <a href="StreamsToInclude.png"><img src="StreamsToIncludeSmall.png" alt="Choose to include or ignore specific streams." /></a>
+    </p>
+    <p>After finishing the import wizard, you should see your default timetable. The program has automatically added the classes which you must take. You can return to this state at any time using the Reset button in the toolbar. Times when you have no classes at all are shaded grey.</p>
+    <p align="center">
+      <a href="Default.png"><img src="DefaultSmall.png" alt="Default streams, where you have no choice." /></a>
+    </p>
+    <p>Click on the Find Solutions icon. You might have to wait a little while for the optimiser to run, especially if you have a couple of subjects which have lots of tutorial options available at different times, for example. After the optimisation has completed, you'll see a list of solutions, ordered from "best" to "worst". The criteria can be modified, but we'll leave this for a later tutorial. Solutions that have the same properties are highlighted in alternating white and grey.</p>
+    <p align="center">
+      <a href="Solutions.png"><img src="SolutionsSmall.png" alt="Solutions found using default criteria." /></a>
+    </p>
+    <p>When you select a solution, information is displayed at the bottom of the window, along with a visual preview. You can "star" a handful of solutions then check <em>Only show starred solutions</em>.</p>
+    <p align="center">
+      <a href="Starred.png"><img src="StarredSmall.png" alt="A selection of solutions that have been starred." /></a>
+    </p>
+    <p>Once you've selected a solution you like, click <em>Use Solution</em> or hit Enter. And that's it!</p>
+    <p align="center">
+      <a href="Solved.png"><img src="SolvedSmall.png" alt="The solution from the top of the list was chosen." /></a>
+    </p>
+    <p>Too easy? Let's move on to the <a href="02.php">next tutorial</a>.</p>
+  </div>
+  
+</div>
+
+</body>
+</html>
+
