@@ -733,8 +733,8 @@ namespace UniTimetable
             // Data format Activity (session - subject code - stream), Class Type, Day, Start, End, Duration, Class/Event Date, Syllabus Plus Weeks, Location, Campus, Teaching Staff, Contact Hours
             while ((line = inputStream.ReadLine()) != null)
             {
-                line = line.Replace("\"","");
-                read = line.Split(',');
+                read = line.Split(new string[] { "\",\"" }, StringSplitOptions.None);
+                line = line.Replace("\"", "");
                 activity = read[0].Split('-');
 
                 Session session = new Session();
