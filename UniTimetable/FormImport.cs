@@ -16,6 +16,7 @@ namespace UniTimetable
         Importer[] ImporterList_ = new Importer[] {
             new UQSiNetImporter(),
             new UNSWHtmlImporter(),
+            new UOWCsvImporter()
         };
 
         Importer Importer_ = null;

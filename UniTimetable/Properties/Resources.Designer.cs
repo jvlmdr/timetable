@@ -388,5 +388,12 @@ namespace UniTimetable.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        internal static System.Drawing.Bitmap UOW {
+            get {
+                object obj = ResourceManager.GetObject("UOW", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
