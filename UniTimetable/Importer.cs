@@ -84,6 +84,7 @@ namespace UniTimetable
         {
             // try and parse files
             Timetable t = Parse();
+        
             // if parsing failed
             if (t == null || !t.HasData())
             {
@@ -669,6 +670,188 @@ namespace UniTimetable
                     rowLine++;
                 }
             }
+            inputStream.Close();
+        }
+    }
+
+    class UOWCsvImporter : Importer
+    {
+        public UOWCsvImporter()
+            : base()
+        {
+            FormatName_ = "University of Wollongong CSV File";
+            University_ = "University of Wollongong";
+            CreatedBy_ = "Lachlan Moodie";
+            LastUpdated_ = "12/2/2018";
+
+            File1Description_ = "UOW CSV File (*.csv)";
+            File1Dialog_.Title = "Import UOW CSV File";
+            File1Dialog_.Filter = "UOW CSV File (*.CSV)|*.csv";
+
+            Logo_ = Properties.Resources.UOW;
+
+            //FileInstructions_ = "";
+        }
+
+        protected override Timetable Parse()
+        {
+            Timetable timetable = new Timetable();
+
+            // get file name
+            string fileName = File1Dialog_.FileName;
+            // if it doesn't end with .csv
+            string fileNameLower = fileName.ToLower();
+            if (!(fileNameLower.EndsWith(".csv")))
+            {
+                // pop up an error
+                MessageBox.Show("Please select a CSV file.", "Import", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // and return null - failed
+                return null;
+            }
+
+            ParseOptional(timetable, fileName);
+
+
+            return timetable;
+        }
+
+        private void ParseOptional(Timetable timetable, string fileName)
+        {
+            StreamReader inputStream = new StreamReader(fileName);
+            string line;
+            string[] activity, read;
+
+            List<Session> sessions = new List<Session>();
+            
+            // UPDATE FROM HERE
+
+
+            // skip first few lines
+            while ((line = inputStream.ReadLine()) != null && !line.Contains("Activity")) ;
+
+            
+            // Data format Activity (session - subject code - stream), Class Type, Day, Start, End, Duration, Class/Event Date, Syllabus Plus Weeks, Location, Campus, Teaching Staff, Contact Hours
+            while ((line = inputStream.ReadLine()) != null)
+            {
+                read = line.Split(new string[] { "\",\"" }, StringSplitOptions.None);
+                line = line.Replace("\"", "");
+                activity = read[0].Split('-');
+
+                Session session = new Session();
+
+                int day;
+                switch (read[2])
+                {
+                    case "Sunday":
+                        day = 0;
+                        break;
+                    case "Monday":
+                        day = 1;
+                        break;
+                    case "Tuesday":
+                        day = 2;
+                        break;
+                    case "Wednesday":
+                        day = 3;
+                        break;
+                    case "Thursday":
+                        day = 4;
+                        break;
+                    case "Friday":
+                        day = 5;
+                        break;
+                    case "Saturday":
+                        day = 6;
+                        break;
+                    default:
+                        day = -1;
+                        break;
+                }
+                
+                session.Day = day;
+                System.Diagnostics.Debug.WriteLine(read[3].Split(':')[0]);
+                session.StartHour = Convert.ToInt32(read[3].Split(':')[0]);
+                session.StartMinute = Convert.ToInt32(read[3].Split(':')[1]);
+                session.EndHour = Convert.ToInt32(read[4].Split(':')[0]);
+                session.EndMinute = Convert.ToInt32(read[4].Split(':')[1]);
+                session.Location = read[8]; //location
+                
+                // Check if subject exists
+                Subject subject = null;
+                for (int i = 0; i < timetable.SubjectList.Count; i++)
+                {
+                    if (timetable.SubjectList[i].Name == activity[1])
+                    {
+                        subject = timetable.SubjectList[i];
+                        break;
+                    }
+                }
+                // If it doesn't exist, create it.
+                if (subject == null)
+                {
+                    subject = new Subject(activity[1]);
+                    timetable.SubjectList.Add(subject);
+                }
+                                
+                // Check if the session type exists.
+                Type type = null;
+                foreach (Type x in subject.Types)
+                {
+                    if (x.Code == (activity[2]).Split('/')[0])
+                    {
+                        // Matched on the first letter.
+                        type = x;
+                        break;
+                    }
+                }
+                if (type == null)
+                {
+                    // The session type doesn't exist, create it.
+                    type = new Type(read[1], activity[2].Split('/')[0], subject);
+                    timetable.TypeList.Add(type);
+                }
+
+                // Get a stream object.
+                // Grab the stream number.
+                    
+                // Search to see if the stream exists.
+                Stream stream = null;
+                foreach (Stream x in type.Streams)
+                {
+                    if (x.Number == Convert.ToInt32(activity[2].Split('/')[1]))
+                    {
+                        stream = x;
+                        break;
+                    }
+                }
+                // Otherwise build a new one.
+                if (stream == null)
+                {
+                    stream = new Stream(Convert.ToInt32(activity[2].Split('/')[1]));
+                    // Tack it on to the stream list.
+                    timetable.StreamList.Add(stream);
+                }
+
+                // Link the subject and type.
+                if (!subject.Types.Contains(type)) 
+                {
+                    subject.Types.Add(type);
+                    type.Subject = subject;
+                }
+                // Link the stream and type.
+                if (!type.Streams.Contains(stream))
+                {
+                    type.Streams.Add(stream);
+                    stream.Type = type;
+                }
+                // Link the stream and class together.
+                // Add it to our list of classes.
+                timetable.ClassList.Add(session);
+                stream.Classes.Add(session);
+                session.Stream = stream;
+
+               }
+                       
             inputStream.Close();
         }
     }
